@@ -1,0 +1,22 @@
+(define (point x y)
+  (letrec ((getx (lambda () x))
+           (gety (lambda () y))
+           (add  (lambda (p)
+                   (point
+                    (+ x (send 'getx p))
+                    (+ y (send 'gety p)))))
+           (type-of (lambda () 'point)))
+    (lambda (message)
+      (cond ((eq? message 'getx) getx)
+            ((eq? message 'gety) gety)
+            ((eq? message 'add)  add)
+            ((eq? message 'type-of) type-of)
+            (else (error #f "Message not understood"))))))
+
+(define (send message obj . par)
+  (let ((method (obj message)))
+    (apply method par)))
+
+(define p (point 1 2))
+(format #t "x: ~a~%" (send 'getx p))
+(format #t "y: ~a~%" (send 'gety p))
