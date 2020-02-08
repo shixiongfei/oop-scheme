@@ -7,17 +7,19 @@
 (define (method-lookup object selector)
   (cond ((procedure? object) (object selector))
         (else
-         (error #f "Inappropriate object in method-lookup: "
-                object))))
+         (error "method-lookup"
+            "Inappropriate object in method-lookup: "
+            object))))
 
 (define (send message object . args)
   (let ((method (method-lookup object message)))
     (cond ((procedure? method) (apply method args))
           ((null? method)
-           (error #f "Message not understood: " message))
+           (error "send" "Message not understood: " message))
           (else
-           (error #f "Inappropriate result of method lookup: "
-                  method)))))
+           (error "send"
+              "Inappropriate result of method lookup: "
+              method)))))
 
 (define (point x y)
   (let ((x x)
@@ -39,7 +41,7 @@
             ((eqv? message 'gety) gety)
             ((eqv? message 'add)  add)
             ((eqv? message 'type-of) type-of)
-            (else (error #f "Undefined message" message))))
+            (else (error "point" "Undefined message" message))))
 
     self))
 
@@ -64,13 +66,14 @@
 
 (define cp (new-instance color-point 5 6 'red))
 
-(format #t "cp color: ~a~%" (send 'get-color cp))
-(format #t "cp x: ~a~%" (send 'getx cp))
-(format #t "cp y: ~a~%" (send 'gety cp))
+(format "cp color: ~a" (send 'get-color cp))
+(format "cp x: ~a" (send 'getx cp))
+(format "cp y: ~a" (send 'gety cp))
 
 (define cp-1 (send 'add cp (new-instance color-point 1 2 'green)))
 
-(format #t "cp-1 x: ~a~%" (send 'getx cp-1))
-(format #t "cp-1 y: ~a~%" (send 'gety cp-1))
-(format #t "cp-1 type of: ~a~%" (send 'type-of cp-1))
-(format #t "cp-1 color: ~a~%" (send 'get-color cp-1))
+(format "cp-1 x: ~a" (send 'getx cp-1))
+(format "cp-1 y: ~a" (send 'gety cp-1))
+(format "cp-1 type of: ~a" (send 'type-of cp-1))
+(format "cp-1 color: ~a" (send 'get-color cp-1))
+

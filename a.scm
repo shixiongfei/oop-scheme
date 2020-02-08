@@ -11,12 +11,13 @@
             ((eq? message 'gety) gety)
             ((eq? message 'add)  add)
             ((eq? message 'type-of) type-of)
-            (else (error #f "Message not understood"))))))
+            (else (error "point" "Message not understood" message))))))
 
 (define (send message obj . par)
   (let ((method (obj message)))
     (apply method par)))
 
 (define p (point 1 2))
-(format #t "x: ~a~%" (send 'getx p))
-(format #t "y: ~a~%" (send 'gety p))
+(format "x: ~a" (send 'getx p))
+(format "y: ~a" (send 'gety p))
+

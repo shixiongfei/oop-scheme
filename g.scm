@@ -2,10 +2,10 @@
   (let ((method (method-lookup object message)))
     (cond ((procedure? method) (apply method args))
           ((null? method)
-           (error #f "Message not understood: " message))
+           (error "send" "Message not understood: " message))
           (else
-           (error #f "Inappropriate result of method lookup: "
-                  method)))))
+           (error "send" "Inappropriate result of method lookup: "
+              method)))))
 
 (define (virtual-operations object)
   (send 'set-self! object object))
@@ -21,17 +21,18 @@
 (define (method-lookup object selector)
   (cond ((procedure? object) (object selector))
         (else
-         (error #f "Inappropriate object in method-lookup: "
-                object))))
+         (error "method-lookup"
+            "Inappropriate object in method-lookup: "
+            object))))
 
 (define (object)
-  (let [(super '())
-        (self 'nil)]
+  (let ((super '())
+        (self 'nil))
     (define (set-self! object-part)
       (set! self object-part))
     (define (self message)
-      (cond [(eqv? message 'set-self!) set-self!]
-            [else '()]))
+      (cond ((eqv? message 'set-self!) set-self!)
+            (else '())))
     self))
 
 (define (x)
@@ -79,5 +80,5 @@
 (define a (new-instance x))
 (define b (new-instance y))
 
-(format #t "a: ~a~%" (send 'res a))
-(format #t "b: ~a~%" (send 'res b))
+(format "a: ~a" (send 'res a))
+(format "b: ~a" (send 'res b))
