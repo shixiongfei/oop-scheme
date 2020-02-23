@@ -103,27 +103,27 @@
 (define a (new-instance x))
 (define b (new-instance y))
 
-(format "a: ~a" (send 'res a))
-(format "b: ~a" (send 'res b))
+(format #t "a: ~a~%" (send 'res a))
+(format #t "b: ~a~%" (send 'res b))
 
 (define p (new-instance point 2 3))
 (define q (new-instance point 4 5))
 (define p+q (send 'add p q))
 
-(format "p x: ~a" (send 'getx p))
-(format "p+q x: ~a" (send 'getx p+q))
-(format "p+q y: ~a" (send 'gety p+q))
+(format #t "p x: ~a y: ~a~%" (send 'getx p) (send 'gety p))
+(format #t "p+q x: ~a y: ~a~%" (send 'getx p+q) (send 'gety p+q))
 
 (define cp (new-instance color-point 5 6 'red))
 
-(format "cp color: ~a" (send 'get-color cp))
-(format "cp x: ~a" (send 'getx cp))
-(format "cp y: ~a" (send 'gety cp))
+(format #t "cp color: ~a x: ~a y: ~a~%"
+        (send 'get-color cp)
+        (send 'getx cp)
+        (send 'gety cp))
 
 (define cp-1 (send 'add cp (new-instance color-point 1 2 'green)))
 
-(format "cp-1 x: ~a" (send 'getx cp-1))
-(format "cp-1 y: ~a" (send 'gety cp-1))
-(format "cp-1 type-of: ~a" (send 'type-of cp-1))
-(format "cp-1 color: ~a" (send 'get-color cp-1))
-
+(format #t "cp-1 type: ~a x: ~a y: ~a~%"
+        (send 'type-of cp-1)
+        (send 'getx cp-1)
+        (send 'gety cp-1))
+(format #t "cp-1 color: ~a~%" (send 'get-color cp-1))  ;; Error: "Message not understood: " get-color

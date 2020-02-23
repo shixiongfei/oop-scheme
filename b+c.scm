@@ -31,10 +31,10 @@
     self))
 
 (define p (new-instance point 2 3))
-(format "p x: ~a" (send 'getx p))
+(format #t "p x: ~a y: ~a~%" (send 'getx p) (send 'gety p))
 
 (define q (new-instance point 4 5))
 (define p+q (send 'add p q))
 
-(format "p+q x: ~a" (send 'getx p+q))
-(format "p+q y: ~a" (send 'gety p+q))
+(format #t "q x: ~a y: ~a~%" (send 'getx q) (send 'gety q))
+(format #t "p+q x: ~a y: ~a~%" (send 'getx p+q) (send 'gety p+q))

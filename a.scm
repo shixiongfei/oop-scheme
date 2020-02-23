@@ -18,6 +18,5 @@
     (apply method par)))
 
 (define p (point 1 2))
-(format "x: ~a" (send 'getx p))
-(format "y: ~a" (send 'gety p))
-
+(format #t "x: ~a~%" (send 'getx p))
+(format #t "y: ~a~%" (send 'gety p))

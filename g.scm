@@ -80,5 +80,5 @@
 (define a (new-instance x))
 (define b (new-instance y))
 
-(format "a: ~a" (send 'res a))
-(format "b: ~a" (send 'res b))
+(format #t "a: ~a~%" (send 'res a))
+(format #t "b: ~a~%" (send 'res b))

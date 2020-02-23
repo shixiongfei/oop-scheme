@@ -66,14 +66,15 @@
 
 (define cp (new-instance color-point 5 6 'red))
 
-(format "cp color: ~a" (send 'get-color cp))
-(format "cp x: ~a" (send 'getx cp))
-(format "cp y: ~a" (send 'gety cp))
+(format #t "cp color: ~a x: ~a y: ~a~%"
+        (send 'get-color cp)
+        (send 'getx cp)
+        (send 'gety cp))
 
 (define cp-1 (send 'add cp (new-instance color-point 1 2 'green)))
 
-(format "cp-1 x: ~a" (send 'getx cp-1))
-(format "cp-1 y: ~a" (send 'gety cp-1))
-(format "cp-1 type of: ~a" (send 'type-of cp-1))
-(format "cp-1 color: ~a" (send 'get-color cp-1))
-
+(format #t "cp-1 type: ~a x: ~a y: ~a~%"
+        (send 'type-of cp-1)
+        (send 'getx cp-1)
+        (send 'gety cp-1))
+(format #t "cp-1 color: ~a~%" (send 'get-color cp-1)) ;; Error: "Undefined message" get-color
